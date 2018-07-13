@@ -15,6 +15,27 @@ namespace Stock_Money_Maker
         public Form1()
         {
             InitializeComponent();
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label_main_info_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
+        {
+
+        }
+
+        private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
