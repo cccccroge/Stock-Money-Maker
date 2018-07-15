@@ -37,6 +37,7 @@
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.myGroupBox2 = new Stock_Money_Maker.myGroupBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -113,6 +114,7 @@
             // myGroupBox1
             // 
             this.myGroupBox1.BorderColor = System.Drawing.SystemColors.AppWorkspace;
+            this.myGroupBox1.Controls.Add(this.comboBox2);
             this.myGroupBox1.Controls.Add(this.comboBox1);
             this.myGroupBox1.Font = new System.Drawing.Font("微軟正黑體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.myGroupBox1.ForeColor = System.Drawing.SystemColors.AppWorkspace;
@@ -121,7 +123,7 @@
             this.myGroupBox1.Size = new System.Drawing.Size(671, 84);
             this.myGroupBox1.TabIndex = 1;
             this.myGroupBox1.TabStop = false;
-            this.myGroupBox1.Text = "選擇代號";
+            this.myGroupBox1.Text = "選擇類股 / 代號";
             // 
             // comboBox1
             // 
@@ -135,7 +137,7 @@
             "5"});
             this.comboBox1.Location = new System.Drawing.Point(20, 34);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(219, 35);
+            this.comboBox1.Size = new System.Drawing.Size(195, 35);
             this.comboBox1.TabIndex = 1;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
@@ -155,12 +157,20 @@
             // textBox1
             // 
             this.textBox1.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.textBox1.Location = new System.Drawing.Point(256, 72);
+            this.textBox1.Location = new System.Drawing.Point(20, 34);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(290, 152);
+            this.textBox1.Size = new System.Drawing.Size(630, 254);
             this.textBox1.TabIndex = 0;
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(234, 34);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(200, 35);
+            this.comboBox2.TabIndex = 2;
             // 
             // Form1
             // 
@@ -200,6 +210,7 @@
         private myGroupBox myGroupBox1;
         private myGroupBox myGroupBox2;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.ComboBox comboBox2;
     }
 }
 

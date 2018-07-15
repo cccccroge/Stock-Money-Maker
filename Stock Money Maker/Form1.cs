@@ -47,7 +47,7 @@ namespace Stock_Money_Maker
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // update stock info
+            // Get HTML string of stock list page at goodinfo.tw
             WebClient webClient = new WebClient();
             webClient.Headers.Add("user-agent",
                 "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:61.0)" +
@@ -56,8 +56,27 @@ namespace Stock_Money_Maker
                 "https://goodinfo.tw/StockInfo/StockList.asp");
             Encoding encode = System.Text.Encoding.GetEncoding("utf-8");
             StreamReader streamReader = new StreamReader(stream, encode);
-            String outputStr = streamReader.ReadToEnd();
-            textBox1.Text = outputStr;
+            String str = streamReader.ReadToEnd();
+
+            // Parse HTML by using HTML Agility Pack
+            var doc = new HtmlAgilityPack.HtmlDocument();
+            doc.LoadHtml(str);
+
+            String xPath = "//div[@id='txtStockListMenu']/table[@id='" +
+                "STOCK_LIST_ALL']/tr[position() > 1 and position() < 11]";
+
+            try
+            {
+                var list = doc.DocumentNode.SelectNodes(xPath)
+                    .ToList();
+                int count = list.Count;
+                textBox1.Text = count.ToString();
+            }
+            catch (Exception ex)
+            {
+                textBox1.Text = ex.Message;
+            }
+            
         }
     }
 }
