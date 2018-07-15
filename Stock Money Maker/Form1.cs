@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net;
 using System.IO;
+using System.Diagnostics;
 
 namespace Stock_Money_Maker
 {
@@ -47,10 +48,16 @@ namespace Stock_Money_Maker
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             // update stock info
-            WebRequest request = WebRequest.Create("https://goodinfo.tw/StockInfo/StockList.asp");
-            WebResponse respond = request.GetResponse();
-            Stream stream = respond.GetResponseStream();
-            
+            WebClient webClient = new WebClient();
+            webClient.Headers.Add("user-agent",
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:61.0)" +
+                " Gecko/20100101");
+            Stream stream = webClient.OpenRead(
+                "https://goodinfo.tw/StockInfo/StockList.asp");
+            Encoding encode = System.Text.Encoding.GetEncoding("utf-8");
+            StreamReader streamReader = new StreamReader(stream, encode);
+            String outputStr = streamReader.ReadToEnd();
+            textBox1.Text = outputStr;
         }
     }
 }

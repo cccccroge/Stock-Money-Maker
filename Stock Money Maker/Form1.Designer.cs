@@ -33,9 +33,10 @@
             this.label_main_info = new System.Windows.Forms.Label();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.myGroupBox1 = new Stock_Money_Maker.myGroupBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.myGroupBox2 = new Stock_Money_Maker.myGroupBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -43,6 +44,7 @@
             this.splitContainer1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.myGroupBox1.SuspendLayout();
+            this.myGroupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -108,6 +110,19 @@
             this.flowLayoutPanel1.Size = new System.Drawing.Size(674, 424);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
+            // myGroupBox1
+            // 
+            this.myGroupBox1.BorderColor = System.Drawing.SystemColors.AppWorkspace;
+            this.myGroupBox1.Controls.Add(this.comboBox1);
+            this.myGroupBox1.Font = new System.Drawing.Font("微軟正黑體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.myGroupBox1.ForeColor = System.Drawing.SystemColors.AppWorkspace;
+            this.myGroupBox1.Location = new System.Drawing.Point(3, 3);
+            this.myGroupBox1.Name = "myGroupBox1";
+            this.myGroupBox1.Size = new System.Drawing.Size(671, 84);
+            this.myGroupBox1.TabIndex = 1;
+            this.myGroupBox1.TabStop = false;
+            this.myGroupBox1.Text = "選擇代號";
+            // 
             // comboBox1
             // 
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -124,22 +139,10 @@
             this.comboBox1.TabIndex = 1;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
-            // myGroupBox1
-            // 
-            this.myGroupBox1.BorderColor = System.Drawing.SystemColors.AppWorkspace;
-            this.myGroupBox1.Controls.Add(this.comboBox1);
-            this.myGroupBox1.Font = new System.Drawing.Font("微軟正黑體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.myGroupBox1.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.myGroupBox1.Location = new System.Drawing.Point(3, 3);
-            this.myGroupBox1.Name = "myGroupBox1";
-            this.myGroupBox1.Size = new System.Drawing.Size(671, 84);
-            this.myGroupBox1.TabIndex = 1;
-            this.myGroupBox1.TabStop = false;
-            this.myGroupBox1.Text = "選擇代號";
-            // 
             // myGroupBox2
             // 
             this.myGroupBox2.BorderColor = System.Drawing.SystemColors.AppWorkspace;
+            this.myGroupBox2.Controls.Add(this.textBox1);
             this.myGroupBox2.Font = new System.Drawing.Font("微軟正黑體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.myGroupBox2.ForeColor = System.Drawing.SystemColors.AppWorkspace;
             this.myGroupBox2.Location = new System.Drawing.Point(3, 93);
@@ -148,6 +151,16 @@
             this.myGroupBox2.TabIndex = 2;
             this.myGroupBox2.TabStop = false;
             this.myGroupBox2.Text = "20日K線(涵蓋率95%)";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.textBox1.Location = new System.Drawing.Point(256, 72);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBox1.Size = new System.Drawing.Size(290, 152);
+            this.textBox1.TabIndex = 0;
             // 
             // Form1
             // 
@@ -170,6 +183,8 @@
             this.splitContainer1.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.myGroupBox1.ResumeLayout(false);
+            this.myGroupBox2.ResumeLayout(false);
+            this.myGroupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -184,6 +199,7 @@
         private System.Windows.Forms.ComboBox comboBox1;
         private myGroupBox myGroupBox1;
         private myGroupBox myGroupBox2;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 
