@@ -23,7 +23,7 @@ namespace Stock_Money_Maker
         private void InitCategories()
         {
             // Get HTML string of stock list page at goodinfo.tw
-            webClient = new WebClient();
+            WebClient webClient = new WebClient();
             webClient.Headers.Add("user-agent",
                 "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:61.0)" +
                 " Gecko/20100101");
@@ -32,6 +32,11 @@ namespace Stock_Money_Maker
             Encoding encode = System.Text.Encoding.GetEncoding("utf-8");
             StreamReader streamReader = new StreamReader(stream, encode);
             String str = streamReader.ReadToEnd();
+
+            streamReader.Close();
+            stream.Close();
+            webClient.Dispose();
+
 
             // Get 9 rows of stock list by using HTML Agility Pack
             HAP_doc = new HtmlAgilityPack.HtmlDocument();
@@ -56,31 +61,6 @@ namespace Stock_Money_Maker
             }
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label_main_info_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
-        {
-
-        }
-
-        private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
-        }
-
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             // find URL of provided category
@@ -94,18 +74,36 @@ namespace Stock_Money_Maker
             textBox1.Text += URL;
 
             // Go to that URL and get HTML
+            WebClient webClient = new WebClient();
+            webClient.Headers.Add("user-agent",
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:61.0)" +
+                " Gecko/20100101");
             Stream stream = webClient.OpenRead(URL);
             Encoding encode = System.Text.Encoding.GetEncoding("utf-8");
             StreamReader streamReader = new StreamReader(stream, encode);
             String str = streamReader.ReadToEnd();
-            textBox1.Text += str;
+            //textBox1.Text += str;
             HAP_doc.LoadHtml(str);
 
+            stream.Close();
+            streamReader.Close();
+            webClient.Dispose();
+
             // iterate nodes and load it to comboBox2
-            String xPath2 = "/html/body";
+            String xPath2 = "//div[@id='divStockList']" +
+                "/table[@class='solid_1_padding_3_1_tbl']" +
+                "/tr";
             var nodes = HAP_doc.DocumentNode.SelectNodes(xPath2);
 
-            //textBox1.Text += (nodes.Count.ToString() + Environment.NewLine);
+            comboBox2.Items.Clear();
+            foreach (var node in nodes)
+            {
+                String stkId = node.SelectSingleNode("./td[1]//a").InnerText;
+                String stkName = node.SelectSingleNode("./td[2]//a").InnerText;
+
+                comboBox2.Items.Add(stkId + " " + stkName);
+            }
+            GC.Collect();
         }
     }
 }

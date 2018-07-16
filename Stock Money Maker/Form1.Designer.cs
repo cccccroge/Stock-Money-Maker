@@ -70,7 +70,6 @@ namespace Stock_Money_Maker
             this.label_instruction.Size = new System.Drawing.Size(253, 30);
             this.label_instruction.TabIndex = 2;
             this.label_instruction.Text = "請選擇您的股票代號。";
-            this.label_instruction.Click += new System.EventHandler(this.label1_Click);
             // 
             // label_main_info
             // 
@@ -81,7 +80,6 @@ namespace Stock_Money_Maker
             this.label_main_info.Size = new System.Drawing.Size(177, 40);
             this.label_main_info.TabIndex = 1;
             this.label_main_info.Text = "歡迎回來！";
-            this.label_main_info.Click += new System.EventHandler(this.label_main_info_Click);
             // 
             // splitContainer1
             // 
@@ -209,7 +207,6 @@ namespace Stock_Money_Maker
         private System.Windows.Forms.ComboBox comboBox2;
 
         private HtmlAgilityPack.HtmlDocument HAP_doc;
-        private WebClient webClient;
     }
 }
 
