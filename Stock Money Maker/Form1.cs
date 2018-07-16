@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net;
 using System.IO;
-using System.Diagnostics;
 
 namespace Stock_Money_Maker
 {
@@ -18,6 +17,43 @@ namespace Stock_Money_Maker
         public Form1()
         {
             InitializeComponent();
+            InitCategories();
+        }
+
+        private void InitCategories()
+        {
+            // Get HTML string of stock list page at goodinfo.tw
+            webClient = new WebClient();
+            webClient.Headers.Add("user-agent",
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:61.0)" +
+                " Gecko/20100101");
+            Stream stream = webClient.OpenRead(
+                "https://goodinfo.tw/StockInfo/StockList.asp");
+            Encoding encode = System.Text.Encoding.GetEncoding("utf-8");
+            StreamReader streamReader = new StreamReader(stream, encode);
+            String str = streamReader.ReadToEnd();
+
+            // Get 9 rows of stock list by using HTML Agility Pack
+            HAP_doc = new HtmlAgilityPack.HtmlDocument();
+            HAP_doc.LoadHtml(str);
+            String xPath = "//div[@id='txtStockListMenu']/table[@id='" +
+                "STOCK_LIST_ALL']/tr[position() > 1 and position() < 11]";
+            HtmlAgilityPack.HtmlNodeCollection nodes =
+                HAP_doc.DocumentNode.SelectNodes(xPath);
+
+            // Iterate nodes, get all categories and load it to combobox
+            foreach (var node in nodes)
+            {
+                var nodes2 = node.SelectNodes("./td");
+                foreach (var node2 in nodes2)
+                {
+                    var node3 = node2.SelectSingleNode("./a");
+                    if (node3 != null)
+                    {
+                        comboBox1.Items.Add(node3.InnerText);
+                    }
+                }
+            }
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -47,36 +83,29 @@ namespace Stock_Money_Maker
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Get HTML string of stock list page at goodinfo.tw
-            WebClient webClient = new WebClient();
-            webClient.Headers.Add("user-agent",
-                "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:61.0)" +
-                " Gecko/20100101");
-            Stream stream = webClient.OpenRead(
-                "https://goodinfo.tw/StockInfo/StockList.asp");
+            // find URL of provided category
+            String id = comboBox1.SelectedItem.ToString();
+            String xPath = "//div[@id='txtStockListMenu']/table[@id='" +
+                "STOCK_LIST_ALL']/tr/td/a[text()='" + id + "']";
+            String index = "https://goodinfo.tw/StockInfo/";
+            String URL = index + HAP_doc.DocumentNode.SelectSingleNode(xPath)
+                .Attributes["href"].Value;
+
+            textBox1.Text += URL;
+
+            // Go to that URL and get HTML
+            Stream stream = webClient.OpenRead(URL);
             Encoding encode = System.Text.Encoding.GetEncoding("utf-8");
             StreamReader streamReader = new StreamReader(stream, encode);
             String str = streamReader.ReadToEnd();
+            textBox1.Text += str;
+            HAP_doc.LoadHtml(str);
 
-            // Parse HTML by using HTML Agility Pack
-            var doc = new HtmlAgilityPack.HtmlDocument();
-            doc.LoadHtml(str);
+            // iterate nodes and load it to comboBox2
+            String xPath2 = "/html/body";
+            var nodes = HAP_doc.DocumentNode.SelectNodes(xPath2);
 
-            String xPath = "//div[@id='txtStockListMenu']/table[@id='" +
-                "STOCK_LIST_ALL']/tr[position() > 1 and position() < 11]";
-
-            try
-            {
-                var list = doc.DocumentNode.SelectNodes(xPath)
-                    .ToList();
-                int count = list.Count;
-                textBox1.Text = count.ToString();
-            }
-            catch (Exception ex)
-            {
-                textBox1.Text = ex.Message;
-            }
-            
+            //textBox1.Text += (nodes.Count.ToString() + Environment.NewLine);
         }
     }
 }
