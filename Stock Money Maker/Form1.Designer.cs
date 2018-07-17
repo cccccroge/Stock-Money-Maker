@@ -30,6 +30,9 @@ namespace Stock_Money_Maker
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label_instruction = new System.Windows.Forms.Label();
             this.label_main_info = new System.Windows.Forms.Label();
@@ -39,6 +42,7 @@ namespace Stock_Money_Maker
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.myGroupBox2 = new Stock_Money_Maker.myGroupBox();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -48,6 +52,7 @@ namespace Stock_Money_Maker
             this.flowLayoutPanel1.SuspendLayout();
             this.myGroupBox1.SuspendLayout();
             this.myGroupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -97,8 +102,8 @@ namespace Stock_Money_Maker
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.flowLayoutPanel1);
-            this.splitContainer1.Size = new System.Drawing.Size(787, 564);
-            this.splitContainer1.SplitterDistance = 105;
+            this.splitContainer1.Size = new System.Drawing.Size(787, 714);
+            this.splitContainer1.SplitterDistance = 110;
             this.splitContainer1.SplitterWidth = 1;
             this.splitContainer1.TabIndex = 2;
             // 
@@ -108,7 +113,7 @@ namespace Stock_Money_Maker
             this.flowLayoutPanel1.Controls.Add(this.myGroupBox2);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(57, 19);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(674, 424);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(674, 547);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // myGroupBox1
@@ -132,6 +137,7 @@ namespace Stock_Money_Maker
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(200, 35);
             this.comboBox2.TabIndex = 2;
+            this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
             // 
             // comboBox1
             // 
@@ -147,31 +153,57 @@ namespace Stock_Money_Maker
             // 
             this.myGroupBox2.BorderColor = System.Drawing.SystemColors.AppWorkspace;
             this.myGroupBox2.Controls.Add(this.textBox1);
+            this.myGroupBox2.Controls.Add(this.chart1);
             this.myGroupBox2.Font = new System.Drawing.Font("微軟正黑體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.myGroupBox2.ForeColor = System.Drawing.SystemColors.AppWorkspace;
             this.myGroupBox2.Location = new System.Drawing.Point(3, 93);
             this.myGroupBox2.Name = "myGroupBox2";
-            this.myGroupBox2.Size = new System.Drawing.Size(671, 331);
+            this.myGroupBox2.Size = new System.Drawing.Size(671, 454);
             this.myGroupBox2.TabIndex = 2;
             this.myGroupBox2.TabStop = false;
             this.myGroupBox2.Text = "20日K線(涵蓋率95%)";
             // 
+            // chart1
+            // 
+            chartArea1.AxisX.MajorGrid.LineWidth = 0;
+            chartArea1.AxisY.MajorGrid.LineWidth = 0;
+            chartArea1.BorderWidth = 0;
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
+            this.chart1.Location = new System.Drawing.Point(20, 34);
+            this.chart1.Name = "chart1";
+            this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Grayscale;
+            this.chart1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
+            series1.CustomProperties = "PixelPointWidth=3, PriceDownColor=50\\, 255\\, 150, PointWidth=1, PriceUpColor=255\\" +
+    ", 50\\, 100";
+            series1.IsXValueIndexed = true;
+            series1.Legend = "Legend1";
+            series1.MarkerBorderColor = System.Drawing.Color.Black;
+            series1.Name = "股價";
+            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+            series1.YValuesPerPoint = 4;
+            this.chart1.Series.Add(series1);
+            this.chart1.Size = new System.Drawing.Size(628, 353);
+            this.chart1.TabIndex = 1;
+            this.chart1.Text = "chart1";
+            // 
             // textBox1
             // 
-            this.textBox1.Font = new System.Drawing.Font("微軟正黑體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.textBox1.Location = new System.Drawing.Point(20, 34);
-            this.textBox1.Multiline = true;
+            this.textBox1.Location = new System.Drawing.Point(20, 413);
             this.textBox1.Name = "textBox1";
-            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(630, 254);
-            this.textBox1.TabIndex = 0;
+            this.textBox1.Size = new System.Drawing.Size(628, 35);
+            this.textBox1.TabIndex = 2;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(19F, 40F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(61)))), ((int)(((byte)(53)))), ((int)(((byte)(55)))));
-            this.ClientSize = new System.Drawing.Size(784, 561);
+            this.ClientSize = new System.Drawing.Size(784, 711);
             this.Controls.Add(this.splitContainer1);
             this.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.Font = new System.Drawing.Font("微軟正黑體", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
@@ -189,6 +221,7 @@ namespace Stock_Money_Maker
             this.myGroupBox1.ResumeLayout(false);
             this.myGroupBox2.ResumeLayout(false);
             this.myGroupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -203,10 +236,11 @@ namespace Stock_Money_Maker
         private System.Windows.Forms.ComboBox comboBox1;
         private myGroupBox myGroupBox1;
         private myGroupBox myGroupBox2;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.ComboBox comboBox2;
 
         private HtmlAgilityPack.HtmlDocument HAP_doc;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 

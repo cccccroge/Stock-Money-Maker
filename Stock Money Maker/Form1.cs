@@ -71,8 +71,6 @@ namespace Stock_Money_Maker
             String URL = index + HAP_doc.DocumentNode.SelectSingleNode(xPath)
                 .Attributes["href"].Value;
 
-            textBox1.Text += URL;
-
             // Go to that URL and get HTML
             WebClient webClient = new WebClient();
             webClient.Headers.Add("user-agent",
@@ -82,7 +80,6 @@ namespace Stock_Money_Maker
             Encoding encode = System.Text.Encoding.GetEncoding("utf-8");
             StreamReader streamReader = new StreamReader(stream, encode);
             String str = streamReader.ReadToEnd();
-            //textBox1.Text += str;
             HAP_doc.LoadHtml(str);
 
             stream.Close();
@@ -104,6 +101,69 @@ namespace Stock_Money_Maker
                 comboBox2.Items.Add(stkId + " " + stkName);
             }
             GC.Collect();
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // find URL of provided id
+            String xPath = "//div[@id='divStockList']" +
+                "/table[@class='solid_1_padding_3_1_tbl']" +
+                "/tr";
+            var nodes = HAP_doc.DocumentNode.SelectNodes(xPath);
+
+            String subURL = "";
+            foreach (var node in nodes)
+            {
+                String specifiedStr = comboBox2.SelectedItem.ToString().Remove(4);
+                if (node.SelectSingleNode("./td[1]//a").InnerText == specifiedStr)
+                {
+                    var node2 = node.SelectSingleNode("./td[17]//a");
+                    subURL = node2.Attributes["href"].Value.ToString();
+                    break;
+                }
+            }
+
+            String index = "https://goodinfo.tw/StockInfo/";
+            String URL = index + subURL;
+
+            // Go to that URL and get HTML
+            WebClient webClient = new WebClient();
+            webClient.Headers.Add("user-agent",
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:61.0)" +
+                " Gecko/20100101");
+            Stream stream = webClient.OpenRead(URL);
+            Encoding encode = System.Text.Encoding.GetEncoding("utf-8");
+            StreamReader streamReader = new StreamReader(stream, encode);
+            String str = streamReader.ReadToEnd();
+            HAP_doc.LoadHtml(str);
+
+            stream.Close();
+            streamReader.Close();
+            webClient.Dispose();
+
+            // iterate nodes and load data to candlestick chart
+            String xPath2 = "//div[@id='divPriceDetail']" +
+                "/table[@class='solid_1_padding_3_0_tbl']" +
+                "/tr";
+            var nodes2 = HAP_doc.DocumentNode.SelectNodes(xPath2);
+
+            chart1.Series[0].Points.Clear();
+            foreach (var node in nodes2)
+            {
+                String date = node.SelectSingleNode("./td[1]/nobr").InnerText;
+                String highStr = node.SelectSingleNode("./td[3]/nobr").InnerText;
+                float high = Convert.ToSingle(highStr);
+                String lowStr = node.SelectSingleNode("./td[4]/nobr").InnerText;
+                float low = Convert.ToSingle(lowStr);
+                String openStr = node.SelectSingleNode("./td[2]/nobr").InnerText;
+                float open = Convert.ToSingle(openStr);
+                String closeStr = node.SelectSingleNode("./td[5]/nobr").InnerText;
+                float close = Convert.ToSingle(closeStr);
+
+                chart1.Series[0].Points.AddXY(date, low, high, open, close);
+            }
+
+            //textBox1.Text += nodes2.Count.ToString();
         }
     }
 }
