@@ -163,13 +163,46 @@ namespace Stock_Money_Maker
                 chart1.Series[0].Points.AddXY(date, low, high, open, close);
             }
 
+            // calculate K-line of 20 day
+            chart1.Series.Add("移動平均");
+            chart1.Series[1].ChartType = System.Windows.Forms.DataVisualization
+                .Charting.SeriesChartType.Line;
+            //chart1.Series[1].Color = ;
+
+            var points = chart1.Series[0].Points;
+            double sum = 0;
+            for (var i = 0; i < 20; i++)
+            {
+                double y = chart1.Series[0].Points[i].GetValueByName("Y4");
+                sum += y;
+            }
+
+            for (var i = 20; i < points.Count; i++)
+            {
+                double currentY = chart1.Series[0].Points[i].GetValueByName("Y4");
+                double removeY = chart1.Series[0].Points[i - 20].GetValueByName("Y4");
+                sum = sum + currentY - removeY;
+
+                double average = sum / 20;
+                var date = chart1.Series[0].Points[i].GetValueByName("X");
+                label1.Text += (date.ToString() + " ");
+                chart1.Series[1].Points.AddXY(date, average);
+            }
+            
             // adjust y-axis value boundary
             double maxPrice = chart1.Series[0].Points.FindMaxByValue("Y2")
                 .GetValueByName("Y2");
-            chart1.ChartAreas[0].AxisY.Maximum = (int)(maxPrice + 2);
+            double maxAverge = chart1.Series[1].Points.FindMaxByValue("Y")
+                .GetValueByName("Y");
+            double max = (maxPrice >= maxAverge) ? maxPrice : maxAverge;
+            chart1.ChartAreas[0].AxisY.Maximum = (int)(max + 2);
+
             double minPrice = chart1.Series[0].Points.FindMinByValue("Y1")
                 .GetValueByName("Y1");
-            chart1.ChartAreas[0].AxisY.Minimum = (int)(minPrice - 2);
+            double minAverge = chart1.Series[1].Points.FindMinByValue("Y")
+                .GetValueByName("Y");
+            double min = (minPrice <= minAverge) ? minPrice : minAverge;
+            chart1.ChartAreas[0].AxisY.Minimum = (int)(min - 2);
 
             //textBox1.Text += nodes2.Count.ToString();
         }

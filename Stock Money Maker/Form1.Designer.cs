@@ -42,8 +42,8 @@ namespace Stock_Money_Maker
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.myGroupBox2 = new Stock_Money_Maker.myGroupBox();
-            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.label1 = new System.Windows.Forms.Label();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -163,6 +163,15 @@ namespace Stock_Money_Maker
             this.myGroupBox2.TabStop = false;
             this.myGroupBox2.Text = "20日K線(涵蓋率95%)";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(15, 424);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(71, 27);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "label1";
+            // 
             // chart1
             // 
             chartArea1.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
@@ -183,7 +192,6 @@ namespace Stock_Money_Maker
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
             series1.CustomProperties = "PixelPointWidth=3, PriceDownColor=50\\, 255\\, 150, PointWidth=1, PriceUpColor=255\\" +
     ", 50\\, 100";
-            series1.IsXValueIndexed = true;
             series1.Legend = "Legend1";
             series1.MarkerBorderColor = System.Drawing.Color.Black;
             series1.Name = "股價";
@@ -193,15 +201,6 @@ namespace Stock_Money_Maker
             this.chart1.Size = new System.Drawing.Size(628, 373);
             this.chart1.TabIndex = 1;
             this.chart1.Text = "chart1";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(275, 420);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(71, 27);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "label1";
             // 
             // Form1
             // 
