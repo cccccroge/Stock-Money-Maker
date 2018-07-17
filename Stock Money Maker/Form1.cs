@@ -177,6 +177,7 @@ namespace Stock_Money_Maker
             {
                 double y = chart1.Series[0].Points[i].GetValueByName("Y4");
                 sum += y;
+                chart1.Series[1].Points.AddXY("12/30", double.NaN);
             }
 
             for (var i = 20; i < points.Count; i++)
