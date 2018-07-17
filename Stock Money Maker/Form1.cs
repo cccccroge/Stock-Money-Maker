@@ -164,10 +164,12 @@ namespace Stock_Money_Maker
             }
 
             // calculate K-line of 20 day
-            chart1.Series.Add("移動平均");
+            /*chart1.Series.Add("移動平均");
             chart1.Series[1].ChartType = System.Windows.Forms.DataVisualization
                 .Charting.SeriesChartType.Line;
-            //chart1.Series[1].Color = ;
+            chart1.Series[1].XValueType = System.Windows.Forms.DataVisualization
+                .Charting.ChartValueType.Date;
+            chart1.Series[1].Color = ;*/
 
             var points = chart1.Series[0].Points;
             double sum = 0;
@@ -184,9 +186,11 @@ namespace Stock_Money_Maker
                 sum = sum + currentY - removeY;
 
                 double average = sum / 20;
-                var date = chart1.Series[0].Points[i].GetValueByName("X");
-                label1.Text += (date.ToString() + " ");
-                chart1.Series[1].Points.AddXY(date, average);
+                var date = chart1.Series[0].Points[i].XValue;
+                var date2 = DateTime.FromOADate(date).ToString("MM/dd");
+                textBox1.Text += (date2 + Environment.NewLine);
+
+                chart1.Series[1].Points.AddXY(date2, average);
             }
             
             // adjust y-axis value boundary

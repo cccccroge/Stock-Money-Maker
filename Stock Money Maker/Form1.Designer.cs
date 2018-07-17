@@ -33,6 +33,7 @@ namespace Stock_Money_Maker
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label_instruction = new System.Windows.Forms.Label();
             this.label_main_info = new System.Windows.Forms.Label();
@@ -44,6 +45,7 @@ namespace Stock_Money_Maker
             this.myGroupBox2 = new Stock_Money_Maker.myGroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -152,6 +154,7 @@ namespace Stock_Money_Maker
             // myGroupBox2
             // 
             this.myGroupBox2.BorderColor = System.Drawing.SystemColors.AppWorkspace;
+            this.myGroupBox2.Controls.Add(this.textBox1);
             this.myGroupBox2.Controls.Add(this.label1);
             this.myGroupBox2.Controls.Add(this.chart1);
             this.myGroupBox2.Font = new System.Drawing.Font("微軟正黑體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
@@ -192,15 +195,30 @@ namespace Stock_Money_Maker
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
             series1.CustomProperties = "PixelPointWidth=3, PriceDownColor=50\\, 255\\, 150, PointWidth=1, PriceUpColor=255\\" +
     ", 50\\, 100";
+            series1.LabelFormat = "mm/dd";
             series1.Legend = "Legend1";
             series1.MarkerBorderColor = System.Drawing.Color.Black;
             series1.Name = "股價";
             series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
             series1.YValuesPerPoint = 4;
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series2.LabelFormat = "mm/dd";
+            series2.Legend = "Legend1";
+            series2.Name = "移動平均";
+            series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
             this.chart1.Series.Add(series1);
+            this.chart1.Series.Add(series2);
             this.chart1.Size = new System.Drawing.Size(628, 373);
             this.chart1.TabIndex = 1;
             this.chart1.Text = "chart1";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(109, 416);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(556, 35);
+            this.textBox1.TabIndex = 3;
             // 
             // Form1
             // 
@@ -245,6 +263,7 @@ namespace Stock_Money_Maker
         private HtmlAgilityPack.HtmlDocument HAP_doc;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 
