@@ -145,7 +145,7 @@ namespace Stock_Money_Maker
             String xPath2 = "//div[@id='divPriceDetail']" +
                 "/table[@class='solid_1_padding_3_0_tbl']" +
                 "/tr";
-            var nodes2 = HAP_doc.DocumentNode.SelectNodes(xPath2);
+            var nodes2 = HAP_doc.DocumentNode.SelectNodes(xPath2).Reverse();
 
             chart1.Series[0].Points.Clear();
             foreach (var node in nodes2)
@@ -162,6 +162,14 @@ namespace Stock_Money_Maker
 
                 chart1.Series[0].Points.AddXY(date, low, high, open, close);
             }
+
+            // adjust y-axis value boundary
+            double maxPrice = chart1.Series[0].Points.FindMaxByValue("Y2")
+                .GetValueByName("Y2");
+            chart1.ChartAreas[0].AxisY.Maximum = (int)(maxPrice + 2);
+            double minPrice = chart1.Series[0].Points.FindMinByValue("Y1")
+                .GetValueByName("Y1");
+            chart1.ChartAreas[0].AxisY.Minimum = (int)(minPrice - 2);
 
             //textBox1.Text += nodes2.Count.ToString();
         }
