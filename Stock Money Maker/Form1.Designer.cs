@@ -34,6 +34,7 @@ namespace Stock_Money_Maker
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label_instruction = new System.Windows.Forms.Label();
             this.label_main_info = new System.Windows.Forms.Label();
@@ -43,9 +44,9 @@ namespace Stock_Money_Maker
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.myGroupBox2 = new Stock_Money_Maker.myGroupBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -166,6 +167,13 @@ namespace Stock_Money_Maker
             this.myGroupBox2.TabStop = false;
             this.myGroupBox2.Text = "20日K線(涵蓋率95%)";
             // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(109, 416);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(556, 35);
+            this.textBox1.TabIndex = 3;
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -207,18 +215,17 @@ namespace Stock_Money_Maker
             series2.Legend = "Legend1";
             series2.Name = "移動平均";
             series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Range;
+            series3.Legend = "Legend1";
+            series3.Name = "Series3";
+            series3.YValuesPerPoint = 2;
             this.chart1.Series.Add(series1);
             this.chart1.Series.Add(series2);
+            this.chart1.Series.Add(series3);
             this.chart1.Size = new System.Drawing.Size(628, 373);
             this.chart1.TabIndex = 1;
             this.chart1.Text = "chart1";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(109, 416);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(556, 35);
-            this.textBox1.TabIndex = 3;
             // 
             // Form1
             // 

@@ -141,6 +141,16 @@ namespace Stock_Money_Maker
             streamReader.Close();
             webClient.Dispose();
 
+            /*// TODO:Go to that URL and get one year data
+            WebBrowser webBrowser = new WebBrowser();
+            webBrowser.AllowNavigation = true;
+            webBrowser.Navigate(new Uri(URL));
+
+            webBrowser.DocumentCompleted += 
+                new WebBrowserDocumentCompletedEventHandler(
+                    webBrowser_documentCompleted);
+            //webBrowser.Dispose();*/
+
             // iterate nodes and load data to candlestick chart
             String xPath2 = "//div[@id='divPriceDetail']" +
                 "/table[@class='solid_1_padding_3_0_tbl']" +
@@ -164,12 +174,7 @@ namespace Stock_Money_Maker
             }
 
             // calculate K-line of 20 day
-            /*chart1.Series.Add("移動平均");
-            chart1.Series[1].ChartType = System.Windows.Forms.DataVisualization
-                .Charting.SeriesChartType.Line;
-            chart1.Series[1].XValueType = System.Windows.Forms.DataVisualization
-                .Charting.ChartValueType.Date;
-            chart1.Series[1].Color = ;*/
+            //chart1.Series[1].Color = ;
 
             var points = chart1.Series[0].Points;
             double sum = 0;
@@ -189,7 +194,6 @@ namespace Stock_Money_Maker
                 double average = sum / 20;
                 var date = chart1.Series[0].Points[i].XValue;
                 var date2 = DateTime.FromOADate(date).ToString("MM/dd");
-                textBox1.Text += (date2 + Environment.NewLine);
 
                 chart1.Series[1].Points.AddXY(date2, average);
             }
@@ -209,7 +213,15 @@ namespace Stock_Money_Maker
             double min = (minPrice <= minAverge) ? minPrice : minAverge;
             chart1.ChartAreas[0].AxisY.Minimum = (int)(min - 2);
 
-            //textBox1.Text += nodes2.Count.ToString();
+            // TODO: draw an area from k-line which covers 0.95 of points
+
+        }
+
+        private void webBrowser_documentCompleted(object sender, 
+            WebBrowserDocumentCompletedEventArgs e)
+        {
+            //textBox1.Text += "yo, whatup?";
+            textBox1.Text = ((WebBrowser)sender).DocumentText.ToString();
         }
     }
 }
