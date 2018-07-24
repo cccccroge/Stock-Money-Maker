@@ -104,6 +104,7 @@ namespace Stock_Money_Maker
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.textBox1);
             this.splitContainer1.Panel2.Controls.Add(this.flowLayoutPanel1);
             this.splitContainer1.Size = new System.Drawing.Size(787, 714);
             this.splitContainer1.SplitterDistance = 110;
@@ -155,7 +156,6 @@ namespace Stock_Money_Maker
             // myGroupBox2
             // 
             this.myGroupBox2.BorderColor = System.Drawing.SystemColors.AppWorkspace;
-            this.myGroupBox2.Controls.Add(this.textBox1);
             this.myGroupBox2.Controls.Add(this.label1);
             this.myGroupBox2.Controls.Add(this.chart1);
             this.myGroupBox2.Font = new System.Drawing.Font("微軟正黑體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
@@ -169,9 +169,11 @@ namespace Stock_Money_Maker
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(109, 416);
+            this.textBox1.Location = new System.Drawing.Point(152, 525);
+            this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(556, 35);
+            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBox1.Size = new System.Drawing.Size(610, 41);
             this.textBox1.TabIndex = 3;
             // 
             // label1
@@ -244,6 +246,7 @@ namespace Stock_Money_Maker
             this.panel1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);

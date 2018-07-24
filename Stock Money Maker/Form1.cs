@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Net;
 using System.IO;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Firefox;
 
 namespace Stock_Money_Maker
 {
@@ -126,35 +128,37 @@ namespace Stock_Money_Maker
             String index = "https://goodinfo.tw/StockInfo/";
             String URL = index + subURL;
 
-            // Go to that URL and get HTML
-            WebClient webClient = new WebClient();
-            webClient.Headers.Add("user-agent",
-                "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:61.0)" +
-                " Gecko/20100101");
-            Stream stream = webClient.OpenRead(URL);
-            Encoding encode = System.Text.Encoding.GetEncoding("utf-8");
-            StreamReader streamReader = new StreamReader(stream, encode);
-            String str = streamReader.ReadToEnd();
-            HAP_doc.LoadHtml(str);
+            // Go to that URL and get one yeardata-HTML
+            // (using Selenium)
+            IWebDriver driver = new FirefoxDriver();
+            driver.Navigate().GoToUrl(URL);
+            int count1 = driver.PageSource.Length;
 
-            stream.Close();
-            streamReader.Close();
-            webClient.Dispose();
+            IWebElement select = driver.FindElement(By.Id("selK_ChartPeriod"));
+            IList<IWebElement> options = 
+                select.FindElements(By.TagName("option"));
+            foreach (var option in options)
+            {
+                if (option.Text == "一年")
+                {
+                    option.Click();
+                    break;
+                }
+            }
 
-            /*// TODO:Go to that URL and get one year data
-            WebBrowser webBrowser = new WebBrowser();
-            webBrowser.AllowNavigation = true;
-            webBrowser.Navigate(new Uri(URL));
-
-            webBrowser.DocumentCompleted += 
-                new WebBrowserDocumentCompletedEventHandler(
-                    webBrowser_documentCompleted);
-            //webBrowser.Dispose();*/
+            while (true)
+            {
+                System.Threading.Thread.Sleep(1000);
+                int count2 = driver.PageSource.Length;
+                if (count1 != count2)
+                    break;
+            }
+            HAP_doc.LoadHtml(driver.PageSource);
 
             // iterate nodes and load data to candlestick chart
             String xPath2 = "//div[@id='divPriceDetail']" +
                 "/table[@class='solid_1_padding_3_0_tbl']" +
-                "/tr";
+                "/tbody/tr";
             var nodes2 = HAP_doc.DocumentNode.SelectNodes(xPath2).Reverse();
 
             chart1.Series[0].Points.Clear();
@@ -217,11 +221,9 @@ namespace Stock_Money_Maker
 
         }
 
-        private void webBrowser_documentCompleted(object sender, 
-            WebBrowserDocumentCompletedEventArgs e)
+        private void myGroupBox2_Enter(object sender, EventArgs e)
         {
-            //textBox1.Text += "yo, whatup?";
-            textBox1.Text = ((WebBrowser)sender).DocumentText.ToString();
+
         }
     }
 }
