@@ -104,7 +104,6 @@ namespace Stock_Money_Maker
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.textBox1);
             this.splitContainer1.Panel2.Controls.Add(this.flowLayoutPanel1);
             this.splitContainer1.Size = new System.Drawing.Size(787, 714);
             this.splitContainer1.SplitterDistance = 110;
@@ -156,6 +155,7 @@ namespace Stock_Money_Maker
             // myGroupBox2
             // 
             this.myGroupBox2.BorderColor = System.Drawing.SystemColors.AppWorkspace;
+            this.myGroupBox2.Controls.Add(this.textBox1);
             this.myGroupBox2.Controls.Add(this.label1);
             this.myGroupBox2.Controls.Add(this.chart1);
             this.myGroupBox2.Font = new System.Drawing.Font("微軟正黑體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
@@ -169,11 +169,11 @@ namespace Stock_Money_Maker
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(152, 525);
+            this.textBox1.Location = new System.Drawing.Point(38, 323);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(610, 41);
+            this.textBox1.Size = new System.Drawing.Size(610, 153);
             this.textBox1.TabIndex = 3;
             // 
             // label1
@@ -188,11 +188,16 @@ namespace Stock_Money_Maker
             // chart1
             // 
             chartArea1.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
+            chartArea1.AxisX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Days;
             chartArea1.AxisX.MajorGrid.LineWidth = 0;
             chartArea1.AxisY.InterlacedColor = System.Drawing.Color.WhiteSmoke;
             chartArea1.AxisY.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
             chartArea1.AxisY.IsInterlaced = true;
             chartArea1.AxisY.MajorGrid.LineWidth = 0;
+            chartArea1.CursorX.IsUserEnabled = true;
+            chartArea1.CursorX.LineColor = System.Drawing.Color.DimGray;
+            chartArea1.CursorY.IsUserEnabled = true;
+            chartArea1.CursorY.LineColor = System.Drawing.Color.DimGray;
             chartArea1.Name = "ChartArea1";
             this.chart1.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
@@ -228,6 +233,7 @@ namespace Stock_Money_Maker
             this.chart1.Size = new System.Drawing.Size(628, 373);
             this.chart1.TabIndex = 1;
             this.chart1.Text = "chart1";
+            //this.chart1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.chart1_MouseMove);
             // 
             // Form1
             // 
@@ -246,7 +252,6 @@ namespace Stock_Money_Maker
             this.panel1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
-            this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);

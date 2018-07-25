@@ -221,9 +221,30 @@ namespace Stock_Money_Maker
 
         }
 
-        private void myGroupBox2_Enter(object sender, EventArgs e)
+        private void chart1_MouseMove(object sender, MouseEventArgs e)
         {
+            // Find nearest X point
+            int mouseX = e.X;
+            System.Windows.Forms.DataVisualization.Charting.DataPoint nearestPoint = 
+                null;
+            double interval = chart1.ChartAreas[0].AxisX.i;
 
+            var points = chart1.Series[0].Points;
+            foreach (var point in points)
+            {
+                var d = Math.Abs(mouseX - 
+                    chart1.ChartAreas[0].AxisX.ValueToPixelPosition(point.XValue));
+
+                textBox1.Text += ("d = " + d.ToString() + ", interval = " +
+                    interval.ToString() + Environment.NewLine);
+
+                if (d <= interval / 2)
+                {
+                    nearestPoint = point;
+                }
+            }
+
+            //textBox1.Text = "X:" + nearestPoint.XValue.ToString();
         }
     }
 }
