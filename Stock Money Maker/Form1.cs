@@ -107,6 +107,10 @@ namespace Stock_Money_Maker
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // Change big label
+            label_main_info.Text = "正在分析...";
+            label_instruction.Text = comboBox2.SelectedItem.ToString();
+
             // find URL of provided id
             String xPath = "//div[@id='divStockList']" +
                 "/table[@class='solid_1_padding_3_1_tbl']" +
@@ -187,15 +191,12 @@ namespace Stock_Money_Maker
             }
 
             // calculate K-line of 20 day
-            //chart1.Series[1].Color = ;
-
             var points = chart1.Series[0].Points;
             double sum = 0;
             for (var i = points.Count - 1; i > points.Count - 21; i--)
             {
                 double y = chart1.Series[0].Points[i].GetValueByName("Y4");
                 sum += y;
-                //chart1.Series[1].Points.AddXY(null, double.NaN);
             }
 
             for (var i = points.Count - 21; i >= 0; i--)
@@ -250,14 +251,18 @@ namespace Stock_Money_Maker
                     // Show data
                     var index = result.PointIndex;
                     var point = chart1.Series[0].Points[index];
-                    //var point2 = chart1.Series[1].Points[index];
-                    textBox1.Text = DateTime.FromOADate(point.XValue).ToString("yyyy/MM/dd");
-
-                    textBox1.Text += " | ";
-                    textBox1.Text += "最低:" + point.YValues[0].ToString();
-                    textBox1.Text += "最高:" + point.YValues[1].ToString();
-                    textBox1.Text += "開盤:" + point.YValues[2].ToString();
-                    textBox1.Text += "收盤:" + point.YValues[3].ToString();
+                    textBox1.Text = DateTime.FromOADate(point.XValue)
+                        .ToString("yyyy/MM/dd");
+                    textBox1.Text += "          ";
+                    textBox1.Text += "最低:" + Math.Round(point.YValues[0], 2)
+                        .ToString() + " ";
+                    textBox1.Text += "最高:" + Math.Round(point.YValues[1], 2)
+                        .ToString() + " ";
+                    textBox1.Text += "開盤:" + Math.Round(point.YValues[2], 2)
+                        .ToString() + " ";
+                    textBox1.Text += "收盤:" + Math.Round(point.YValues[3], 2)
+                        .ToString();
+                    textBox1.Refresh();
 
                     // Snap the cursor to point
                     chart1.ChartAreas[0].CursorX.Position = point.XValue;

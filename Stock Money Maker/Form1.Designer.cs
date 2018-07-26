@@ -44,9 +44,8 @@ namespace Stock_Money_Maker
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.myGroupBox2 = new Stock_Money_Maker.myGroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -116,7 +115,7 @@ namespace Stock_Money_Maker
             this.flowLayoutPanel1.Controls.Add(this.myGroupBox2);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(57, 19);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(674, 547);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(674, 569);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // myGroupBox1
@@ -156,37 +155,19 @@ namespace Stock_Money_Maker
             // 
             this.myGroupBox2.BorderColor = System.Drawing.SystemColors.AppWorkspace;
             this.myGroupBox2.Controls.Add(this.textBox1);
-            this.myGroupBox2.Controls.Add(this.label1);
             this.myGroupBox2.Controls.Add(this.chart1);
             this.myGroupBox2.Font = new System.Drawing.Font("微軟正黑體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.myGroupBox2.ForeColor = System.Drawing.SystemColors.AppWorkspace;
             this.myGroupBox2.Location = new System.Drawing.Point(3, 93);
             this.myGroupBox2.Name = "myGroupBox2";
-            this.myGroupBox2.Size = new System.Drawing.Size(671, 454);
+            this.myGroupBox2.Size = new System.Drawing.Size(671, 468);
             this.myGroupBox2.TabIndex = 2;
             this.myGroupBox2.TabStop = false;
             this.myGroupBox2.Text = "20日K線(涵蓋率95%)";
             // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(61, 416);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(587, 35);
-            this.textBox1.TabIndex = 3;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(15, 424);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(71, 27);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "label1";
-            // 
             // chart1
             // 
+            this.chart1.BorderlineWidth = 0;
             chartArea1.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
             chartArea1.AxisX.LabelStyle.Format = "yyyy/MM/dd";
             chartArea1.AxisX.MajorGrid.LineWidth = 0;
@@ -236,6 +217,15 @@ namespace Stock_Money_Maker
             this.chart1.Text = "chart1";
             this.chart1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.chart1_MouseMove);
             // 
+            // textBox1
+            // 
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox1.Location = new System.Drawing.Point(20, 402);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(628, 28);
+            this.textBox1.TabIndex = 2;
+            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(19F, 40F);
@@ -278,7 +268,6 @@ namespace Stock_Money_Maker
 
         private HtmlAgilityPack.HtmlDocument HAP_doc;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBox1;
     }
 }
