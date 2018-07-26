@@ -169,11 +169,11 @@ namespace Stock_Money_Maker
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(38, 323);
+            this.textBox1.Location = new System.Drawing.Point(61, 416);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox1.Size = new System.Drawing.Size(610, 153);
+            this.textBox1.Size = new System.Drawing.Size(587, 35);
             this.textBox1.TabIndex = 3;
             // 
             // label1
@@ -188,13 +188,14 @@ namespace Stock_Money_Maker
             // chart1
             // 
             chartArea1.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
-            chartArea1.AxisX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Days;
+            chartArea1.AxisX.LabelStyle.Format = "yyyy/MM/dd";
             chartArea1.AxisX.MajorGrid.LineWidth = 0;
             chartArea1.AxisY.InterlacedColor = System.Drawing.Color.WhiteSmoke;
             chartArea1.AxisY.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
             chartArea1.AxisY.IsInterlaced = true;
             chartArea1.AxisY.MajorGrid.LineWidth = 0;
             chartArea1.CursorX.IsUserEnabled = true;
+            chartArea1.CursorX.IsUserSelectionEnabled = true;
             chartArea1.CursorX.LineColor = System.Drawing.Color.DimGray;
             chartArea1.CursorY.IsUserEnabled = true;
             chartArea1.CursorY.LineColor = System.Drawing.Color.DimGray;
@@ -210,15 +211,15 @@ namespace Stock_Money_Maker
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
             series1.CustomProperties = "PixelPointWidth=3, PriceDownColor=50\\, 255\\, 150, PointWidth=1, PriceUpColor=255\\" +
     ", 50\\, 100";
-            series1.LabelFormat = "mm/dd";
             series1.Legend = "Legend1";
             series1.MarkerBorderColor = System.Drawing.Color.Black;
             series1.Name = "股價";
             series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
             series1.YValuesPerPoint = 4;
             series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series2.LabelFormat = "mm/dd";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series2.Color = System.Drawing.Color.LightSalmon;
+            series2.CustomProperties = "IsXAxisQuantitative=True, EmptyPointValue=Zero";
             series2.Legend = "Legend1";
             series2.Name = "移動平均";
             series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
@@ -233,7 +234,7 @@ namespace Stock_Money_Maker
             this.chart1.Size = new System.Drawing.Size(628, 373);
             this.chart1.TabIndex = 1;
             this.chart1.Text = "chart1";
-            //this.chart1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.chart1_MouseMove);
+            this.chart1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.chart1_MouseMove);
             // 
             // Form1
             // 

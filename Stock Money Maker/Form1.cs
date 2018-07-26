@@ -135,7 +135,7 @@ namespace Stock_Money_Maker
             int count1 = driver.PageSource.Length;
 
             IWebElement select = driver.FindElement(By.Id("selK_ChartPeriod"));
-            IList<IWebElement> options = 
+            IList<IWebElement> options =
                 select.FindElements(By.TagName("option"));
             foreach (var option in options)
             {
@@ -159,12 +159,21 @@ namespace Stock_Money_Maker
             String xPath2 = "//div[@id='divPriceDetail']" +
                 "/table[@class='solid_1_padding_3_0_tbl']" +
                 "/tbody/tr";
-            var nodes2 = HAP_doc.DocumentNode.SelectNodes(xPath2).Reverse();
+            var nodes2 = HAP_doc.DocumentNode.SelectNodes(xPath2);
 
             chart1.Series[0].Points.Clear();
+            String prevM = "00";
+            String curM = "00";
+            int trackYear = DateTime.Now.Year;
             foreach (var node in nodes2)
             {
                 String date = node.SelectSingleNode("./td[1]/nobr").InnerText;
+                prevM = curM;
+                curM = date.Remove(2);
+                if (prevM == "01" && curM == "12")
+                    trackYear -= 1;
+                Object dateObj = Convert.ToDateTime(trackYear + "/" + date);
+
                 String highStr = node.SelectSingleNode("./td[3]/nobr").InnerText;
                 float high = Convert.ToSingle(highStr);
                 String lowStr = node.SelectSingleNode("./td[4]/nobr").InnerText;
@@ -174,7 +183,7 @@ namespace Stock_Money_Maker
                 String closeStr = node.SelectSingleNode("./td[5]/nobr").InnerText;
                 float close = Convert.ToSingle(closeStr);
 
-                chart1.Series[0].Points.AddXY(date, low, high, open, close);
+                chart1.Series[0].Points.AddXY(dateObj, low, high, open, close);
             }
 
             // calculate K-line of 20 day
@@ -182,26 +191,26 @@ namespace Stock_Money_Maker
 
             var points = chart1.Series[0].Points;
             double sum = 0;
-            for (var i = 0; i < 20; i++)
+            for (var i = points.Count - 1; i > points.Count - 21; i--)
             {
                 double y = chart1.Series[0].Points[i].GetValueByName("Y4");
                 sum += y;
-                chart1.Series[1].Points.AddXY("12/30", double.NaN);
+                //chart1.Series[1].Points.AddXY(null, double.NaN);
             }
 
-            for (var i = 20; i < points.Count; i++)
+            for (var i = points.Count - 21; i >= 0; i--)
             {
                 double currentY = chart1.Series[0].Points[i].GetValueByName("Y4");
-                double removeY = chart1.Series[0].Points[i - 20].GetValueByName("Y4");
+                double removeY = chart1.Series[0].Points[i + 20].GetValueByName("Y4");
                 sum = sum + currentY - removeY;
 
                 double average = sum / 20;
                 var date = chart1.Series[0].Points[i].XValue;
-                var date2 = DateTime.FromOADate(date).ToString("MM/dd");
+                var date2 = DateTime.FromOADate(date);
 
                 chart1.Series[1].Points.AddXY(date2, average);
             }
-            
+
             // adjust y-axis value boundary
             double maxPrice = chart1.Series[0].Points.FindMaxByValue("Y2")
                 .GetValueByName("Y2");
@@ -223,28 +232,39 @@ namespace Stock_Money_Maker
 
         private void chart1_MouseMove(object sender, MouseEventArgs e)
         {
-            // Find nearest X point
-            int mouseX = e.X;
-            System.Windows.Forms.DataVisualization.Charting.DataPoint nearestPoint = 
-                null;
-            double interval = chart1.ChartAreas[0].AxisX.i;
+            // clear info and hint
+            if (textBox1.Text != "")
+                textBox1.Text = "";
+            chart1.ChartAreas[0].CursorX.Position = 0;
+            chart1.ChartAreas[0].CursorY.Position = 0;
 
-            var points = chart1.Series[0].Points;
-            foreach (var point in points)
+            // check if mouse is on point
+            var pos = e.Location;
+            var results = chart1.HitTest(pos.X, pos.Y, false, System.Windows
+                .Forms.DataVisualization.Charting.ChartElementType.DataPoint);
+            foreach (var result in results)
             {
-                var d = Math.Abs(mouseX - 
-                    chart1.ChartAreas[0].AxisX.ValueToPixelPosition(point.XValue));
-
-                textBox1.Text += ("d = " + d.ToString() + ", interval = " +
-                    interval.ToString() + Environment.NewLine);
-
-                if (d <= interval / 2)
+                if (result.ChartElementType == System.Windows
+                .Forms.DataVisualization.Charting.ChartElementType.DataPoint)
                 {
-                    nearestPoint = point;
+                    // Show data
+                    var index = result.PointIndex;
+                    var point = chart1.Series[0].Points[index];
+                    //var point2 = chart1.Series[1].Points[index];
+                    textBox1.Text = DateTime.FromOADate(point.XValue).ToString("yyyy/MM/dd");
+
+                    textBox1.Text += " | ";
+                    textBox1.Text += "最低:" + point.YValues[0].ToString();
+                    textBox1.Text += "最高:" + point.YValues[1].ToString();
+                    textBox1.Text += "開盤:" + point.YValues[2].ToString();
+                    textBox1.Text += "收盤:" + point.YValues[3].ToString();
+
+                    // Snap the cursor to point
+                    chart1.ChartAreas[0].CursorX.Position = point.XValue;
+                    chart1.ChartAreas[0].CursorY.Position = point.YValues[3];
+
                 }
             }
-
-            //textBox1.Text = "X:" + nearestPoint.XValue.ToString();
         }
     }
 }
