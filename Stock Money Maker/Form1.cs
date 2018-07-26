@@ -111,7 +111,7 @@ namespace Stock_Money_Maker
             label_main_info.Text = "正在分析...";
             label_instruction.Text = comboBox2.SelectedItem.ToString();
 
-            // find URL of provided id
+            // Find URL of provided id
             String xPath = "//div[@id='divStockList']" +
                 "/table[@class='solid_1_padding_3_1_tbl']" +
                 "/tr";
@@ -159,7 +159,7 @@ namespace Stock_Money_Maker
             }
             HAP_doc.LoadHtml(driver.PageSource);
 
-            // iterate nodes and load data to candlestick chart
+            // Iterate nodes and load data to candlestick chart
             String xPath2 = "//div[@id='divPriceDetail']" +
                 "/table[@class='solid_1_padding_3_0_tbl']" +
                 "/tbody/tr";
@@ -190,7 +190,7 @@ namespace Stock_Money_Maker
                 chart1.Series[0].Points.AddXY(dateObj, low, high, open, close);
             }
 
-            // calculate K-line of 20 day
+            // Calculate K-line of 20 day
             var points = chart1.Series[0].Points;
             double sum = 0;
             for (var i = points.Count - 1; i > points.Count - 21; i--)
@@ -212,7 +212,10 @@ namespace Stock_Money_Maker
                 chart1.Series[1].Points.AddXY(date2, average);
             }
 
-            // adjust y-axis value boundary
+            // Draw an area from k-line which covers 0.95 of points
+            draw_kline_extendedArea(0.95);
+
+            // Adjust y-axis value boundary
             double maxPrice = chart1.Series[0].Points.FindMaxByValue("Y2")
                 .GetValueByName("Y2");
             double maxAverge = chart1.Series[1].Points.FindMaxByValue("Y")
@@ -226,9 +229,6 @@ namespace Stock_Money_Maker
                 .GetValueByName("Y");
             double min = (minPrice <= minAverge) ? minPrice : minAverge;
             chart1.ChartAreas[0].AxisY.Minimum = (int)(min - 2);
-
-            // TODO: draw an area from k-line which covers 0.95 of points
-
         }
 
         private void chart1_MouseMove(object sender, MouseEventArgs e)
@@ -252,8 +252,8 @@ namespace Stock_Money_Maker
                     var index = result.PointIndex;
                     var point = chart1.Series[0].Points[index];
                     textBox1.Text = DateTime.FromOADate(point.XValue)
-                        .ToString("yyyy/MM/dd");
-                    textBox1.Text += "          ";
+                        .ToString("yyyy年 MM月dd日");
+                    textBox1.Text += "      ";
                     textBox1.Text += "最低:" + Math.Round(point.YValues[0], 2)
                         .ToString() + " ";
                     textBox1.Text += "最高:" + Math.Round(point.YValues[1], 2)
@@ -270,6 +270,79 @@ namespace Stock_Money_Maker
 
                 }
             }
+        }
+
+        private void draw_kline_extendedArea(double cover_ratio)
+        {
+            // Find maxs and mins
+            var data_max = chart1.Series[0].Points.FindMaxByValue("Y4", 20).GetValueByName("Y4");
+            var data_min = chart1.Series[0].Points.FindMinByValue("Y4", 20).GetValueByName("Y4");
+            var k_max = chart1.Series[1].Points.FindMaxByValue("Y").YValues[0];
+            var k_min = chart1.Series[1].Points.FindMinByValue("Y").YValues[0];
+
+            // Init extended area, cover 100%
+            var d1 = data_max - k_min;
+            var d2 = k_max - data_min;
+            var d = d1 >= d2 ? d1 : d2;
+
+            var points = chart1.Series[1].Points;
+            foreach (var point in points)
+            {
+                var x = DateTime.FromOADate(point.XValue);
+                var y = point.YValues[0];
+                chart1.Series[2].Points.AddXY(x, y + d, y - d);
+            }
+
+            // Keep adjust the boundary until it covers the specified ratio
+            double cur_ratio = 0;
+            int n = 0;
+            while (true)
+            {
+                n += 1;
+                var move_d = d * Math.Pow(0.5, n);
+                cur_ratio = count_cover_ratio();
+
+                if (Math.Abs(cur_ratio - cover_ratio) < 0.005)
+                {
+                    break;
+                }
+                else if (cur_ratio < cover_ratio)
+                {
+                    for (var i = 0; i < points.Count; i++)
+                    {
+                        chart1.Series[2].Points[i].YValues[0] += move_d;
+                        chart1.Series[2].Points[i].YValues[1] -= move_d;
+                    }
+                }
+                else if (cur_ratio > cover_ratio)
+                {
+                    for (var i = 0; i < points.Count; i++)
+                    {
+                        chart1.Series[2].Points[i].YValues[0] -= move_d;
+                        chart1.Series[2].Points[i].YValues[1] += move_d;
+                    }
+                }
+            }
+        }
+
+        private double count_cover_ratio()
+        {
+            double total = chart1.Series[1].Points.Count;
+
+            double cover = 0;
+            for (var i = 0; i < total; i++)
+            {
+                var y = chart1.Series[0].Points[(int)total - i].GetValueByName("Y4");
+                var up = chart1.Series[2].Points[i].YValues[0];
+                var down = chart1.Series[2].Points[i].YValues[1];
+
+                if (y <= up && y >= down)
+                {
+                    cover += 1;
+                }
+            }
+
+            return (cover / total);
         }
     }
 }

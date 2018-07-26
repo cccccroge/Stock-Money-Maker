@@ -30,11 +30,11 @@ namespace Stock_Money_Maker
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label_instruction = new System.Windows.Forms.Label();
             this.label_main_info = new System.Windows.Forms.Label();
@@ -44,8 +44,8 @@ namespace Stock_Money_Maker
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.myGroupBox2 = new Stock_Money_Maker.myGroupBox();
-            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -156,75 +156,79 @@ namespace Stock_Money_Maker
             this.myGroupBox2.BorderColor = System.Drawing.SystemColors.AppWorkspace;
             this.myGroupBox2.Controls.Add(this.textBox1);
             this.myGroupBox2.Controls.Add(this.chart1);
-            this.myGroupBox2.Font = new System.Drawing.Font("微軟正黑體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.myGroupBox2.Font = new System.Drawing.Font("新細明體", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.myGroupBox2.ForeColor = System.Drawing.SystemColors.AppWorkspace;
             this.myGroupBox2.Location = new System.Drawing.Point(3, 93);
             this.myGroupBox2.Name = "myGroupBox2";
-            this.myGroupBox2.Size = new System.Drawing.Size(671, 468);
+            this.myGroupBox2.Size = new System.Drawing.Size(671, 447);
             this.myGroupBox2.TabIndex = 2;
             this.myGroupBox2.TabStop = false;
             this.myGroupBox2.Text = "20日K線(涵蓋率95%)";
             // 
-            // chart1
-            // 
-            this.chart1.BorderlineWidth = 0;
-            chartArea1.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
-            chartArea1.AxisX.LabelStyle.Format = "yyyy/MM/dd";
-            chartArea1.AxisX.MajorGrid.LineWidth = 0;
-            chartArea1.AxisY.InterlacedColor = System.Drawing.Color.WhiteSmoke;
-            chartArea1.AxisY.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
-            chartArea1.AxisY.IsInterlaced = true;
-            chartArea1.AxisY.MajorGrid.LineWidth = 0;
-            chartArea1.CursorX.IsUserEnabled = true;
-            chartArea1.CursorX.IsUserSelectionEnabled = true;
-            chartArea1.CursorX.LineColor = System.Drawing.Color.DimGray;
-            chartArea1.CursorY.IsUserEnabled = true;
-            chartArea1.CursorY.LineColor = System.Drawing.Color.DimGray;
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(20, 34);
-            this.chart1.Name = "chart1";
-            this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Grayscale;
-            this.chart1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
-            series1.CustomProperties = "PixelPointWidth=3, PriceDownColor=50\\, 255\\, 150, PointWidth=1, PriceUpColor=255\\" +
-    ", 50\\, 100";
-            series1.Legend = "Legend1";
-            series1.MarkerBorderColor = System.Drawing.Color.Black;
-            series1.Name = "股價";
-            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
-            series1.YValuesPerPoint = 4;
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
-            series2.Color = System.Drawing.Color.LightSalmon;
-            series2.CustomProperties = "IsXAxisQuantitative=True, EmptyPointValue=Zero";
-            series2.Legend = "Legend1";
-            series2.Name = "移動平均";
-            series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Range;
-            series3.Legend = "Legend1";
-            series3.Name = "Series3";
-            series3.YValuesPerPoint = 2;
-            this.chart1.Series.Add(series1);
-            this.chart1.Series.Add(series2);
-            this.chart1.Series.Add(series3);
-            this.chart1.Size = new System.Drawing.Size(628, 373);
-            this.chart1.TabIndex = 1;
-            this.chart1.Text = "chart1";
-            this.chart1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.chart1_MouseMove);
-            // 
             // textBox1
             // 
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox1.Font = new System.Drawing.Font("微軟正黑體", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.textBox1.Location = new System.Drawing.Point(20, 402);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(628, 28);
             this.textBox1.TabIndex = 2;
             this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // chart1
+            // 
+            this.chart1.BorderlineWidth = 0;
+            chartArea2.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
+            chartArea2.AxisX.LabelStyle.Format = "yyyy/MM/dd";
+            chartArea2.AxisX.MajorGrid.LineWidth = 0;
+            chartArea2.AxisY.InterlacedColor = System.Drawing.Color.WhiteSmoke;
+            chartArea2.AxisY.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
+            chartArea2.AxisY.IsInterlaced = true;
+            chartArea2.AxisY.MajorGrid.LineWidth = 0;
+            chartArea2.CursorX.IsUserEnabled = true;
+            chartArea2.CursorX.IsUserSelectionEnabled = true;
+            chartArea2.CursorX.LineColor = System.Drawing.Color.DimGray;
+            chartArea2.CursorY.IsUserEnabled = true;
+            chartArea2.CursorY.LineColor = System.Drawing.Color.DimGray;
+            chartArea2.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chart1.Legends.Add(legend2);
+            this.chart1.Location = new System.Drawing.Point(20, 34);
+            this.chart1.Name = "chart1";
+            this.chart1.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Grayscale;
+            this.chart1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
+            series4.CustomProperties = "PixelPointWidth=3, PriceDownColor=50\\, 255\\, 150, PointWidth=1, PriceUpColor=255\\" +
+    ", 50\\, 100";
+            series4.Legend = "Legend1";
+            series4.MarkerBorderColor = System.Drawing.Color.Black;
+            series4.Name = "股價";
+            series4.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+            series4.YValuesPerPoint = 4;
+            series5.ChartArea = "ChartArea1";
+            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.FastLine;
+            series5.Color = System.Drawing.Color.LightSalmon;
+            series5.CustomProperties = "IsXAxisQuantitative=True, EmptyPointValue=Zero";
+            series5.Legend = "Legend1";
+            series5.Name = "移動平均";
+            series5.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+            series6.BorderWidth = 0;
+            series6.ChartArea = "ChartArea1";
+            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Range;
+            series6.Color = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            series6.Legend = "Legend1";
+            series6.Name = "Series3";
+            series6.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.DateTime;
+            series6.YValuesPerPoint = 2;
+            this.chart1.Series.Add(series4);
+            this.chart1.Series.Add(series5);
+            this.chart1.Series.Add(series6);
+            this.chart1.Size = new System.Drawing.Size(628, 373);
+            this.chart1.TabIndex = 1;
+            this.chart1.Text = "chart1";
+            this.chart1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.chart1_MouseMove);
             // 
             // Form1
             // 
